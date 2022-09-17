@@ -11,7 +11,9 @@ ttpy = Tweetipy(
 )
 
 with open('dog.jpeg', 'rb') as pic:
-    uploaded_media = ttpy.media.upload(media_bytes=pic.read(), media_type="image/jpeg")
+    uploaded_media = ttpy.media.upload(
+        media_bytes=pic.read(),
+        media_type="image/jpeg")
 
 print(
     ttpy.tweets.write(text="On my way to the club 🐶",
