@@ -1,6 +1,6 @@
 from typing import Literal
-from src.helpers.API import API_OAUTH_1_0_a
-from src.types import Media, Poll, Reply, Tweet
+from tweetipy.helpers.API import API_OAUTH_1_0_a
+from tweetipy.types import Media, Poll, Reply, Tweet
 
 
 class HandlerTweets():

@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from os import getenv
-from Tweetipy import Tweetipy
-from Tweetipy.types import Media
+from tweetipy import Tweetipy
+from tweetipy.types import Media
 
 load_dotenv()
 

@@ -22,7 +22,7 @@ In any case, feel free to use it for your own projects. Do create issues if anyt
 ```python
 from dotenv import load_dotenv
 from os import getenv
-from Tweetipy import Tweetipy
+from tweetipy import Tweetipy
 
 load_dotenv()
 
@@ -38,8 +38,8 @@ print(ttpy.tweets.write(text="Hi mom, I'm using Twitter API!"))
 ```python
 from dotenv import load_dotenv
 from os import getenv
-from Tweetipy import Tweetipy
-from Tweetipy.types import Media
+from tweetipy import Tweetipy
+from tweetipy.types import Media
 
 load_dotenv()
 

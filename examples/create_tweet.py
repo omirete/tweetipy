@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from os import getenv
-from Tweetipy import Tweetipy
+from tweetipy import Tweetipy
 
 load_dotenv()
 
