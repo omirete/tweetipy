@@ -19,7 +19,7 @@ In any case, feel free to use it for your own projects. Do create issues if anyt
 # Examples
 
 ### Posting a tweet
-```
+```python
 from dotenv import load_dotenv
 from os import getenv
 from Tweetipy import Tweetipy
@@ -35,7 +35,7 @@ print(ttpy.tweets.write(text="Hi mom, I'm using Twitter API!"))
 ```
 
 ### Posting a tweet with media
-```
+```python
 from dotenv import load_dotenv
 from os import getenv
 from Tweetipy import Tweetipy
