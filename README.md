@@ -54,7 +54,8 @@ with open('path/to/a/very/cute/dog/pic.jpeg', 'rb') as pic:
         media_type="image/jpeg")
 
 print(
-    ttpy.tweets.write(text="This tweet contains some media!",
-    media=Media([uploaded_media.media_id_string]))
+    ttpy.tweets.write(
+        text="This tweet contains some media!",
+        media=Media([uploaded_media.media_id_string]))
 )
 ```
