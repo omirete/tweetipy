@@ -1,5 +1,5 @@
 from typing import Literal
-from Tweetipy.helpers.API import API_OAUTH_1_0_a
+from src.helpers.API import API_OAUTH_1_0_a
 
 _MediaType = Literal[ # The MIME type of the media being uploaded.
         "video/mp4",

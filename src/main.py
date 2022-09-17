@@ -1,6 +1,6 @@
 from os import PathLike
-from Tweetipy.helpers.API import API_OAUTH_1_0_a
-from Tweetipy.handlers import HandlerTweets, HandlerMedia
+from src.helpers.API import API_OAUTH_1_0_a
+from src.handlers import HandlerTweets, HandlerMedia
 
 class Tweetipy():
     def __init__(self,
