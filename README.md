@@ -21,8 +21,7 @@ from tweetipy import Tweetipy
 
 ttpy = Tweetipy(
     oauth_consumer_key='YOUR_TWITTER_API_KEY',
-    oauth_consumer_secret='YOUR_TWITTER_API_KEY_SECRET'
-)
+    oauth_consumer_secret='YOUR_TWITTER_API_KEY_SECRET')
 
 print(ttpy.tweets.write(text="Look mom, I'm using Twitter API!"))
 ```
@@ -34,8 +33,7 @@ from tweetipy.types import Media
 
 ttpy = Tweetipy(
     oauth_consumer_key='YOUR_TWITTER_API_KEY',
-    oauth_consumer_secret='YOUR_TWITTER_API_KEY_SECRET'
-)
+    oauth_consumer_secret='YOUR_TWITTER_API_KEY_SECRET')
 
 with open('path/to/a/very/cute/dog/pic.jpeg', 'rb') as pic:
     uploaded_media = ttpy.media.upload(
