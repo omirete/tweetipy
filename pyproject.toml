@@ -2,7 +2,7 @@
 name = "tweetipy"
 version = "0.1.2"
 description = "A simple \"type hinted\" Python client for interacting with Twitter's API."
-authors = ["Olga Mirete <olgamirete@gmail.com>"]
+authors = ["Federico Giancarelli <hello@federicogiancarelli.com>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/omirete/tweetipy"
