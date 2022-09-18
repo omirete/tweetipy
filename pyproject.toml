@@ -5,6 +5,7 @@ description = "A simple \"type hinted\" Python client for interacting with Twitt
 authors = ["Olga Mirete <olgamirete@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+repository = "https://github.com/omirete/tweetipy"
 
 [tool.poetry.dependencies]
 python = "^3.10"
