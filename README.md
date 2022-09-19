@@ -19,11 +19,16 @@ In any case, feel free to use it for your own projects. Do create issues if anyt
 ```python
 from tweetipy import Tweetipy
 
+# Initialize client
 ttpy = Tweetipy(
-    oauth_consumer_key='YOUR_TWITTER_API_KEY',
-    oauth_consumer_secret='YOUR_TWITTER_API_KEY_SECRET')
+    'YOUR_TWITTER_API_KEY',
+    'YOUR_TWITTER_API_KEY_SECRET')
 
-print(ttpy.tweets.write(text="Look mom, I'm using Twitter API!"))
+# Post tweet to Twitter
+tweet: Tweet = ttpy.tweets.write("Look mom, I'm using Twitter API!")
+
+# See the uploaded tweet! :)
+print(tweet)
 ```
 
 ### Posting a tweet with media
@@ -32,16 +37,17 @@ from tweetipy import Tweetipy
 from tweetipy.types import Media
 
 ttpy = Tweetipy(
-    oauth_consumer_key='YOUR_TWITTER_API_KEY',
-    oauth_consumer_secret='YOUR_TWITTER_API_KEY_SECRET')
+    'YOUR_TWITTER_API_KEY',
+    'YOUR_TWITTER_API_KEY_SECRET')
 
-with open('path/to/a/very/cute/dog/pic.jpeg', 'rb') as pic:
-    uploaded_media = ttpy.media.upload(
-        media_bytes=pic.read(),
-        media_type="image/jpeg")
+pic_bytes = open('path/to/pic.jpeg', 'rb').read()
+uploaded_media = ttpy.media.upload(pic_bytes, media_type="image/jpeg")
 
-print(
-    ttpy.tweets.write(
-        text="This tweet contains some media!",
-        media=Media([uploaded_media.media_id_string])))
+# Post media tweet to Twitter
+tweet = ttpy.tweets.write(
+    "This tweet contains some media!",
+    media=Media([uploaded_media.media_id_string]))
+
+# See the uploaded media tweet! :)
+print(tweet)
 ```
