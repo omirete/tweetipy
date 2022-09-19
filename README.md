@@ -36,10 +36,12 @@ print(tweet)
 from tweetipy import Tweetipy
 from tweetipy.types import Media
 
+# Initialize client
 ttpy = Tweetipy(
     'YOUR_TWITTER_API_KEY',
     'YOUR_TWITTER_API_KEY_SECRET')
 
+# Read some picture and upload the bytes to Twitter
 pic_bytes = open('path/to/pic.jpeg', 'rb').read()
 uploaded_media = ttpy.media.upload(pic_bytes, media_type="image/jpeg")
 
