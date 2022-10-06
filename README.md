@@ -9,7 +9,7 @@ To use it, setup a developer account under [developer.twitter.com](https://devel
 
 After that, create an app from the [developer dashboard](https://developer.twitter.com/en/portal/dashboard) and generate the needed tokens ("API Key and Secret").
 
-Please note that the library does not yet implement the full Twitter API, but rather only some endpoints that are interesting for my projects. Also, although it is already working, please be aware that this library is still in early development phase and thus breaking changes might ocurr. In other words, don't rely on it for production just yet.
+Please note that the library does not yet implement the full Twitter API, but rather only some endpoints that are interesting for my projects. Also, although it is already working, please be aware that this library is still in early development phase and thus breaking changes might occur. In other words, don't rely on it for production just yet.
 
 In any case, feel free to use it for your own projects. Do create issues if anything weird pops up. Pull requests and feature requests are welcome!
 
@@ -19,12 +19,16 @@ In any case, feel free to use it for your own projects. Do create issues if anyt
 ```python
 from tweetipy import Tweetipy
 
+# Initialize client
 ttpy = Tweetipy(
-    oauth_consumer_key='YOUR_TWITTER_API_KEY',
-    oauth_consumer_secret='YOUR_TWITTER_API_KEY_SECRET'
-)
+    'YOUR_TWITTER_API_KEY',
+    'YOUR_TWITTER_API_KEY_SECRET')
 
-print(ttpy.tweets.write(text="Look mom, I'm using Twitter API!"))
+# Post tweet to Twitter
+tweet: Tweet = ttpy.tweets.write("Look mom, I'm using Twitter API!")
+
+# See the uploaded tweet! :)
+print(tweet)
 ```
 
 ### Posting a tweet with media
@@ -32,18 +36,20 @@ print(ttpy.tweets.write(text="Look mom, I'm using Twitter API!"))
 from tweetipy import Tweetipy
 from tweetipy.types import Media
 
+# Initialize client
 ttpy = Tweetipy(
-    oauth_consumer_key='YOUR_TWITTER_API_KEY',
-    oauth_consumer_secret='YOUR_TWITTER_API_KEY_SECRET'
-)
+    'YOUR_TWITTER_API_KEY',
+    'YOUR_TWITTER_API_KEY_SECRET')
 
-with open('path/to/a/very/cute/dog/pic.jpeg', 'rb') as pic:
-    uploaded_media = ttpy.media.upload(
-        media_bytes=pic.read(),
-        media_type="image/jpeg")
+# Read some picture and upload the bytes to Twitter
+pic_bytes = open('path/to/pic.jpeg', 'rb').read()
+uploaded_media = ttpy.media.upload(pic_bytes, media_type="image/jpeg")
 
-print(
-    ttpy.tweets.write(
-        text="This tweet contains some media!",
-        media=Media([uploaded_media.media_id_string])))
+# Post media tweet to Twitter
+tweet = ttpy.tweets.write(
+    "This tweet contains some media!",
+    media=Media([uploaded_media.media_id_string]))
+
+# See the uploaded media tweet! :)
+print(tweet)
 ```

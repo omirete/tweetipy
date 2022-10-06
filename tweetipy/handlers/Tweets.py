@@ -21,7 +21,7 @@ class HandlerTweets():
         reply: Reply = None,
         reply_settings: ReplySettings = None,
         text: str = None  # Required if media not present
-    ):
+    ) -> Tweet:
         endpoint = 'https://api.twitter.com/2/tweets'
 
         # body logic ---------------------------------------------------------
