@@ -1,4 +1,4 @@
-import json
+import json, segno
 from os import PathLike
 from requests_oauthlib import OAuth1, OAuth1Session
 from requests import Request, Response, Session
@@ -50,6 +50,8 @@ class API_OAUTH_1_0_a():
             base_authorization_url = "https://api.twitter.com/oauth/authorize"
             authorization_url = oauth.authorization_url(base_authorization_url)
             print("Please go here and authorize: %s" % authorization_url)
+            print("You can also scan the following QR code instead:")
+            segno.make(authorization_url).terminal(compact=True)
             verifier = input("Paste the PIN here: ")
 
             # Get the access token
