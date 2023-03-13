@@ -68,34 +68,6 @@ class Has():
         return self._return(f'has:geo')
 
 
-class Is():
-    def __init__(self, is_negation: bool = False) -> None:
-        self._is_negation = is_negation
-
-    @property
-    def _prefix(self):
-        return '-' if self._is_negation else ''
-
-    def _return(self, value: str):
-        return QueryStr(f'{self._prefix}{value}')
-
-    @property
-    def retweet(self) -> QueryStr:
-        return self._return(f'is:retweet')
-
-    @property
-    def reply(self) -> QueryStr:
-        return self._return(f'is:reply')
-
-    @property
-    def quote(self) -> QueryStr:
-        return self._return(f'is:quote')
-
-    @property
-    def verified_user(self) -> QueryStr:
-        return self._return(f'is:verified')
-
-
 class QueryBuilder():
     def __init__(self, is_negation: bool = False) -> None:
         self._is_negation = is_negation
@@ -128,44 +100,41 @@ class QueryBuilder():
     def quotes_of_tweet_id(self, tweet_id: str) -> QueryStr:
         return self._return(f'quotes_of_tweet_id:{tweet_id}')
 
-    def context(self, context: str) -> QueryStr:
+    def with_annotated_context(self, context: str) -> QueryStr:
         """
-        See "annotations":
-        https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/annotations
-
         Matches Tweets with a specific domain id/enitity id pair. To learn more
         about this operator, please visit our page on annotations.
-
         You can only pass a single domain/entity per context: operator.
-
         context:domain_id.entity_id
-
         However, you can combine multiple domain/entities using the OR operator:
-
         (context:47.1139229372198469633 OR context:11.1088514520308342784)
-
         Examples:
         context:10.799022225751871488
         (domain_id.entity_id returns Tweets matching that specific domain-entity pair)
-        """
-        return self._return(f'context:{context}')
-
-    def entity(self, entity: str) -> QueryStr:
-        """
+        
         See "annotations":
         https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/annotations
 
-        Matches Tweets with a specific entity string value. To learn more about this operator, please visit our page on annotations.
-
-        Please note that this is only available with recent search.
-
-        You can only pass a single entity: operator.
-
-        entity:"string declaration of entity/place"
-
-        Examples: entity:"Michael Jordan" OR entity:"Barcelona"
+        See available context/entity pairs:
+        https://github.com/twitterdev/twitter-context-annotations
         """
-        return self._return(f'entity:{entity}')
+        return self._return(f'context:{context}')
+
+    def with_annotated_entity(self, entity: str) -> QueryStr:
+        """
+        Matches Tweets with a specific entity string value. To learn more about this operator, please visit our page on annotations.
+        Please note that this is only available with recent search.
+        You can only pass a single entity: operator.
+        entity:"string declaration of entity/place"
+        Examples: entity:"Michael Jordan" OR entity:"Barcelona"
+
+        See "annotations":
+        https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/annotations
+
+        See available entities:
+        https://github.com/twitterdev/twitter-context-annotations
+        """
+        return self._return(f'entity:"{entity}"')
 
     def is_part_of_conversation_id(self, conversation_id: str) -> QueryStr:
         """
@@ -251,7 +220,8 @@ class QueryBuilder():
         Use lowercase 2 letter code for language (BCP 47 language identifier).
         For example, use "es" for spanish, "en" for english, "de" for german,
         etc.
-        See full list of supported languages:
+        You may use "SupportedLanguages" enumeration to find a language code, or
+        you can see the full list in the API docs:
         https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-query#list
         """
         return self._return(f'lang:{lang}')
@@ -259,13 +229,59 @@ class QueryBuilder():
     def with_url(self, url: str) -> QueryStr:
         return self._return(f'url:{url}')
 
+    def with_all_keywords(self, keywords: list[str]) -> QueryStr:
+        """
+        Will filter for tweets containing ALL keywords
+        """
+        return self._return(' '.join(keywords))
+    
+    def with_any_keyword(self, keywords: list[str]) -> QueryStr:
+        """
+        Will filter for tweets containing at least one of the keywords provided.
+        """
+        return self._return(f'({" OR ".join(keywords)})')
+
+    def with_exact_string(self, string: str) -> QueryStr:
+        return self._return(f'"{string}"')
+
     @property
-    def HAS(self):
+    def has(self):
+        """
+        Filter for tweets that have media, links, geolocation data, etc.
+        """
         return Has(self._is_negation)
 
     @property
-    def IS(self):
-        return Is(self._is_negation)
+    def is_retweet(self) -> QueryStr:
+        """
+        If you use this, you need to begin your query with at least one keyword.
+        In other words, this won't work as a standalone query.
+        """
+        return self._return(f'is:retweet')
+
+    @property
+    def is_reply(self) -> QueryStr:
+        """
+        If you use this, you need to begin your query with at least one keyword.
+        In other words, this won't work as a standalone query.
+        """
+        return self._return(f'is:reply')
+
+    @property
+    def is_quote(self) -> QueryStr:
+        """
+        If you use this, you need to begin your query with at least one keyword.
+        In other words, this won't work as a standalone query.
+        """
+        return self._return(f'is:quote')
+
+    @property
+    def is_from_verified_user(self) -> QueryStr:
+        """
+        If you use this, you need to begin your query with at least one keyword.
+        In other words, this won't work as a standalone query.
+        """
+        return self._return(f'is:verified')
 
     @property
     def NOT(self):
