@@ -1,2 +1,2 @@
-from .main import QueryBuilder
+from .main import QueryBuilder, QueryStr
 from .lang import Lang

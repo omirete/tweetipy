@@ -1,5 +1,6 @@
-from typing import Literal
+from typing import Literal, Union
 from tweetipy.helpers.API import API_OAUTH_1_0_a
+from tweetipy.helpers.QueryBuilder import QueryStr
 from tweetipy.types import Media, Poll, Reply, Tweet
 
 
@@ -61,7 +62,7 @@ class HandlerTweets():
     
     def search(
         self,
-        query: str,
+        query: Union[str, QueryStr],
         max_results: int = 10,
         sort_order: Literal["recency", "relevancy"] = "recency",
         start_time_iso: str = None,
@@ -76,7 +77,7 @@ class HandlerTweets():
         endpoint = 'https://api.twitter.com/2/tweets/search/recent'
 
         body = {
-            "query": query,
+            "query": str(query),
             "max_results": max_results,
             "sort_order": sort_order,
             "start_time": start_time_iso,
