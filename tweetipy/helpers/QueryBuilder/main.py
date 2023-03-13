@@ -6,7 +6,7 @@ class QueryStr():
         return QueryStr(f'{self} OR {other}')
 
     def __and__(self, other):
-        return QueryStr(f'{self} AND {other}')
+        return QueryStr(f'{self} {other}')
 
     def __invert__(self):
         if self._str.startswith('-'):
