@@ -58,3 +58,47 @@ class HandlerTweets():
         else:
             print(r.text)
             r.raise_for_status()
+    
+    def search(
+        self,
+        query: str,
+        max_results: int = 10,
+        sort_order: Literal["recency", "relevancy"] = "recency",
+        start_time_iso: str = None,
+        end_time_iso: str = None,
+        since_id: str = None,
+        until_id: str = None,
+        next_token: str = None
+    ) -> list[Tweet]:
+        """
+        - max_results: int between 10 and 100
+        """
+        endpoint = 'https://api.twitter.com/2/tweets/search/recent'
+
+        body = {
+            "query": query,
+            "max_results": max_results,
+            "sort_order": sort_order,
+            "start_time": start_time_iso,
+            "end_time": end_time_iso,
+            "since_id": since_id,
+            "until_id": until_id,
+            "next_token": next_token,
+        }
+
+        # Remove unused params -------------------------------------------------
+        clean_body = {}
+        for key, val in body.items():
+            if val != None:
+                clean_body[key] = val
+        body = clean_body.copy()
+        # ----------------------------------------------------------------------
+
+        r = self.API.get(url=endpoint, params=body)
+        if r.status_code == 200:
+            raw_tweets = r.json()["data"]
+            tweets = [Tweet(**t) for t in raw_tweets]
+            return tweets
+        else:
+            print(r.text)
+            r.raise_for_status()
