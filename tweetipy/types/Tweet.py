@@ -11,6 +11,10 @@ class Tweet():
     @property
     def text(self):
         return self._text
+
+    @property
+    def url(self):
+        return f'https://twitter.com/account/status/{self.id}'
     
     @property
     def edit_history_tweet_ids(self):
@@ -20,6 +24,7 @@ class Tweet():
         return {
             "id": self.id,
             "text": self.text,
+            "url": self.url,
             "edit_history_tweet_ids": self.edit_history_tweet_ids
         }
 
