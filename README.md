@@ -1,5 +1,5 @@
 # Tweetipy
-A simple "type hinted" Python client for interacting with Twitter's API.
+A simple type hinted Python client for interacting with Twitter's API.
 
 ```
 pip -m install tweetipy
