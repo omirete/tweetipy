@@ -96,9 +96,13 @@ class HandlerTweets():
 
         r = self.API.get(url=endpoint, params=body)
         if r.status_code == 200:
-            raw_tweets = r.json()["data"]
-            tweets = [Tweet(**t) for t in raw_tweets]
-            return tweets
+            r_json: dict = r.json()
+            if "data" in r_json.keys():
+                raw_tweets = r_json["data"]
+                tweets = [Tweet(**t) for t in raw_tweets]
+                return tweets
+            else:
+                return []
         else:
             print(r.text)
             r.raise_for_status()
