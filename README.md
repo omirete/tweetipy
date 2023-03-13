@@ -53,3 +53,88 @@ tweet = ttpy.tweets.write(
 # See the uploaded media tweet! :)
 print(tweet)
 ```
+
+### Searching tweets
+```python
+from tweetipy import Tweetipy
+
+# Initialize client
+ttpy = Tweetipy(
+    'YOUR_TWITTER_API_KEY',
+    'YOUR_TWITTER_API_KEY_SECRET')
+
+# Find tweets containing some keywords
+search_results = ttpy.tweets.search(query='space separated keywords')
+
+# See the results
+print(search_results)
+```
+
+### Doing advanced searches - Single condition
+```python
+from tweetipy import Tweetipy
+from tweetipy.helpers import QueryBuilder
+
+# Initialize client
+ttpy = Tweetipy(
+    'YOUR_TWITTER_API_KEY',
+    'YOUR_TWITTER_API_KEY_SECRET')
+
+# Initialize the query builder
+t = QueryBuilder()
+
+# Find tweets containing some keywords
+search_results = ttpy.tweets.search(
+    query=t.from_user('Randogs8'),
+    sort_order='recency'
+)
+
+# See the results
+print(search_results)
+```
+
+### Doing advanced searches - Multiple conditions (AND)
+```python
+from tweetipy import Tweetipy
+from tweetipy.helpers import QueryBuilder
+
+# Initialize client
+ttpy = Tweetipy(
+    'YOUR_TWITTER_API_KEY',
+    'YOUR_TWITTER_API_KEY_SECRET')
+
+# Initialize the query builder
+t = QueryBuilder()
+
+# Find tweets containing some keywords
+search_results = ttpy.tweets.search(
+    query=t.with_all_keywords(['dogs', 'love']) & t.has.media,
+    sort_order='recency'
+)
+
+# See the results
+print(search_results)
+```
+
+### Doing advanced searches - Multiple conditions (OR)
+```python
+from tweetipy import Tweetipy
+from tweetipy.helpers import QueryBuilder
+
+# Initialize client
+ttpy = Tweetipy(
+    'YOUR_TWITTER_API_KEY',
+    'YOUR_TWITTER_API_KEY_SECRET')
+
+# Initialize the query builder
+t = QueryBuilder()
+
+# Find tweets containing some keywords
+search_results = ttpy.tweets.search(
+    query=t.from_user('Randogs8') | t.from_user('cooldogfacts'),
+    sort_order='recency'
+)
+
+# See the results
+print(search_results)
+```
