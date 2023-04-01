@@ -10,6 +10,11 @@ class Tweetipy():
         oauth_token_secret: str = None, # TWITTER_ACCESS_TOKEN_SECRET (Like the password of the user)
         session_path: PathLike = None
     ) -> None:
+        if oauth_consumer_key == None or oauth_consumer_secret == None:
+            raise Exception("""
+            Please provide a valid API key and secret. See how to get them here:
+            https://developer.twitter.com/en/docs/authentication/oauth-1-0a/api-key-and-secret
+            """)
         self._API = API_OAUTH_1_0_a(
             oauth_consumer_key,
             oauth_consumer_secret,
