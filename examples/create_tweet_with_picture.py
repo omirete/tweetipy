@@ -6,8 +6,8 @@ from tweetipy.types import Media
 load_dotenv()
 
 ttpy = Tweetipy(
-    oauth_consumer_key=getenv('TWITTER_API_KEY'),
-    oauth_consumer_secret=getenv('TWITTER_API_KEY_SECRET'))
+    getenv('TWITTER_API_KEY'),
+    getenv('TWITTER_API_KEY_SECRET'))
 
 # First upload the media to Twitter.
 with open('dog.jpeg', 'rb') as pic:
@@ -17,5 +17,5 @@ with open('dog.jpeg', 'rb') as pic:
 
 # Then post a tweet, adding the media_id as a parameter.
 ttpy.tweets.write(
-    text="This tweet contains some media.",
+    "This tweet contains some media.",
     media=Media([uploaded_media.media_id_string]))

@@ -13,15 +13,15 @@ class HandlerTweets():
 
     def write(
         self,
+        text: str = None, # Required if media not present
         # media, poll and quote_tweet_id are mutually exclusive
-        direct_message_deep_link: str = None,
-        for_super_followers_only: bool = None,
         media: Media = None,
         poll: Poll = None,
         quote_tweet_id: str = None,
         reply: Reply = None,
         reply_settings: ReplySettings = None,
-        text: str = None  # Required if media not present
+        direct_message_deep_link: str = None,
+        for_super_followers_only: bool = None,
     ) -> Tweet:
         endpoint = 'https://api.twitter.com/2/tweets'
 

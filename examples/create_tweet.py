@@ -4,9 +4,14 @@ from tweetipy import Tweetipy
 
 load_dotenv()
 
+# Initialize client
 ttpy = Tweetipy(
-    oauth_consumer_key=getenv('TWITTER_API_KEY'),
-    oauth_consumer_secret=getenv('TWITTER_API_KEY_SECRET')
+    getenv('YOUR_TWITTER_API_KEY'),
+    getenv('YOUR_TWITTER_API_KEY_SECRET')
 )
 
-print(ttpy.tweets.write(text="New test"))
+# Post tweet to Twitter
+tweet = ttpy.tweets.write("I'm using Twitter API!")
+
+# See the uploaded tweet! :)
+print(tweet)
