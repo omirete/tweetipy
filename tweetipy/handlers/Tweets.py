@@ -1,7 +1,8 @@
 from typing import Literal, Union
 from tweetipy.helpers.API import API_OAUTH_1_0_a
 from tweetipy.helpers.QueryBuilder import QueryStr
-from tweetipy.types import Media, Poll, Reply, Tweet
+from tweetipy.types import MediaToUpload, Poll, Tweet
+from tweetipy.types.tweet import ReplyConfig
 
 
 class HandlerTweets():
@@ -15,10 +16,11 @@ class HandlerTweets():
         self,
         text: str = None, # Required if media not present
         # media, poll and quote_tweet_id are mutually exclusive
-        media: Media = None,
+        media: MediaToUpload = None,
         poll: Poll = None,
         quote_tweet_id: str = None,
-        reply: Reply = None,
+        in_reply_to_tweet_id: str = None,
+        user_ids_to_exclude_from_thread: list[str] = None,
         reply_settings: ReplySettings = None,
         direct_message_deep_link: str = None,
         for_super_followers_only: bool = None,
@@ -32,7 +34,11 @@ class HandlerTweets():
         if media == None and text == None:
             raise Exception(
                 "text argument is required if no media is present.")
+        if user_ids_to_exclude_from_thread != None and in_reply_to_tweet_id == None:
+            raise Exception('If you provide `user_ids_to_exclude_from_thread`, you need to specify the tweet that you are replying to with `in_reply_to_tweet_id`.')
         # ----------------------------------------------------------------------
+
+        reply_config = ReplyConfig(user_ids_to_exclude_from_thread, in_reply_to_tweet_id)
 
         body = {
             "media": media.json() if media != None else None,
@@ -40,7 +46,7 @@ class HandlerTweets():
             "quote_tweet_id": quote_tweet_id,
             "direct_message_deep_link": direct_message_deep_link,
             "for_super_followers_only": for_super_followers_only,
-            "reply": reply.json() if reply != None else None,
+            "reply": reply_config if in_reply_to_tweet_id != None else None,
             "reply_settings": reply_settings,
             "text": text,
         }

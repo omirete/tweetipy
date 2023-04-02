@@ -1,4 +1,4 @@
-class Media():
+class MediaToUpload():
     def __init__(self, media_ids: list[str], tagged_user_ids: list[str] = None) -> None:
         self.media_ids = media_ids
         self.tagged_user_ids = tagged_user_ids
