@@ -111,7 +111,7 @@ class QueryBuilder():
         Examples:
         context:10.799022225751871488
         (domain_id.entity_id returns Tweets matching that specific domain-entity pair)
-        
+
         See "annotations":
         https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/annotations
 
@@ -227,14 +227,14 @@ class QueryBuilder():
         return self._return(f'lang:{lang}')
 
     def with_url(self, url: str) -> QueryStr:
-        return self._return(f'url:{url}')
+        return self._return(f'url:"{url}"')
 
     def with_all_keywords(self, keywords: list[str]) -> QueryStr:
         """
         Will filter for tweets containing ALL keywords
         """
         return self._return(' '.join(keywords))
-    
+
     def with_any_keyword(self, keywords: list[str]) -> QueryStr:
         """
         Will filter for tweets containing at least one of the keywords provided.
