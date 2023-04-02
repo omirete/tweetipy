@@ -7,7 +7,7 @@ from tweetipy.types.tweet import ReplyConfig
 
 class HandlerTweets():
 
-    ReplySettings = Literal["mentionedUsers", "following"]
+    ReplySettings = Literal["everyone", "mentionedUsers", "following"]
 
     def __init__(self, API: API_OAUTH_1_0_a) -> None:
         self.API = API
