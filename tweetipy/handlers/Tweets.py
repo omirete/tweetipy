@@ -63,7 +63,8 @@ class HandlerTweets():
 
         r = self.API.post(url=endpoint, json=body)
         if r.status_code == 201:
-            return Tweet(**r.json()["data"])
+            tweet_raw = r.json()["data"]
+            return Tweet(**tweet_raw)
         else:
             print(r.text)
             r.raise_for_status()
