@@ -1,14 +1,14 @@
-from dotenv import load_dotenv
-from os import getenv
 from tweetipy import Tweetipy
 
-load_dotenv()
-
+# Initialize the client
 ttpy = Tweetipy(
-    oauth_consumer_key=getenv('TWITTER_API_KEY'),
-    oauth_consumer_secret=getenv('TWITTER_API_KEY_SECRET')
-)
+    'YOUR_TWITTER_API_KEY',
+    'YOUR_TWITTER_API_KEY_SECRET')
 
+# Treat the 'query' argument as you would a search box.
 search_results = ttpy.tweets.search(query='space separated keywords')
 
-print(search_results)
+
+# See results 🤩
+for tweet in search_results:
+    print(tweet)

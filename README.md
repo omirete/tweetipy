@@ -25,7 +25,7 @@ ttpy = Tweetipy(
     'YOUR_TWITTER_API_KEY_SECRET')
 
 # Post tweet to Twitter
-tweet: Tweet = ttpy.tweets.write("Look mom, I'm using Twitter API!")
+tweet = ttpy.tweets.write("I'm using Twitter API!")
 
 # See the uploaded tweet! :)
 print(tweet)
@@ -34,40 +34,40 @@ print(tweet)
 ### Posting a tweet with media
 ```python
 from tweetipy import Tweetipy
-from tweetipy.types import Media
+from tweetipy.types import MediaToUpload
 
-# Initialize client
 ttpy = Tweetipy(
     'YOUR_TWITTER_API_KEY',
     'YOUR_TWITTER_API_KEY_SECRET')
 
-# Read some picture and upload the bytes to Twitter
-pic_bytes = open('path/to/pic.jpeg', 'rb').read()
-uploaded_media = ttpy.media.upload(pic_bytes, media_type="image/jpeg")
+# First upload the media to Twitter.
+with open('dog.jpeg', 'rb') as pic:
+    uploaded_media = ttpy.media.upload(
+        media_bytes=pic.read(),
+        media_type="image/jpeg")
 
-# Post media tweet to Twitter
-tweet = ttpy.tweets.write(
-    "This tweet contains some media!",
-    media=Media([uploaded_media.media_id_string]))
-
-# See the uploaded media tweet! :)
-print(tweet)
+# Then post a tweet, adding the media_id as a parameter.
+ttpy.tweets.write(
+    "This tweet contains some media.",
+    media=MediaToUpload([uploaded_media.media_id_string]))
 ```
 
 ### Searching tweets
 ```python
 from tweetipy import Tweetipy
 
-# Initialize client
+# Initialize the client
 ttpy = Tweetipy(
     'YOUR_TWITTER_API_KEY',
     'YOUR_TWITTER_API_KEY_SECRET')
 
-# Find tweets containing some keywords
+# Treat the 'query' argument as you would a search box.
 search_results = ttpy.tweets.search(query='space separated keywords')
 
-# See the results
-print(search_results)
+
+# See results 🤩
+for tweet in search_results:
+    print(tweet)
 ```
 
 ### Doing advanced searches - Single condition
@@ -75,22 +75,23 @@ print(search_results)
 from tweetipy import Tweetipy
 from tweetipy.helpers import QueryBuilder
 
-# Initialize client
+# Initialize the client
 ttpy = Tweetipy(
     'YOUR_TWITTER_API_KEY',
     'YOUR_TWITTER_API_KEY_SECRET')
 
-# Initialize the query builder
+# The query builder is your friend :)
 t = QueryBuilder()
 
-# Find tweets containing some keywords
+# Define the search criteria using the query builder.
 search_results = ttpy.tweets.search(
     query=t.from_user('Randogs8'),
     sort_order='recency'
 )
 
-# See the results
-print(search_results)
+# See results 🤩
+for tweet in search_results:
+    print(tweet)
 ```
 
 ### Doing advanced searches - Multiple conditions (AND)
@@ -98,22 +99,25 @@ print(search_results)
 from tweetipy import Tweetipy
 from tweetipy.helpers import QueryBuilder
 
-# Initialize client
+# Initialize the client
 ttpy = Tweetipy(
     'YOUR_TWITTER_API_KEY',
     'YOUR_TWITTER_API_KEY_SECRET')
 
-# Initialize the query builder
+# The query builder is your friend :)
 t = QueryBuilder()
 
-# Find tweets containing some keywords
+# Use the 'and' operator (&) to define alternative criteria.
+# The query builder will do some background work for you so this works as
+# expected. 😎
 search_results = ttpy.tweets.search(
     query=t.with_all_keywords(['dogs', 'love']) & t.has.media,
-    sort_order='recency'
+    sort_order='relevancy'
 )
 
-# See the results
-print(search_results)
+# See the results 🤩
+for tweet in search_results:
+    print(tweet)
 ```
 
 ### Doing advanced searches - Multiple conditions (OR)
@@ -121,20 +125,23 @@ print(search_results)
 from tweetipy import Tweetipy
 from tweetipy.helpers import QueryBuilder
 
-# Initialize client
+# Initialize the client
 ttpy = Tweetipy(
     'YOUR_TWITTER_API_KEY',
     'YOUR_TWITTER_API_KEY_SECRET')
 
-# Initialize the query builder
+# The query builder is your friend :)
 t = QueryBuilder()
 
-# Find tweets containing some keywords
+# Use the pipe operator (|) to define alternative criteria.
+# The query builder will do some background work for you so this works as
+# expected. 😎
 search_results = ttpy.tweets.search(
     query=t.from_user('Randogs8') | t.from_user('cooldogfacts'),
     sort_order='recency'
 )
 
-# See the results
-print(search_results)
+# See the results 🤩
+for tweet in search_results:
+    print(tweet)
 ```

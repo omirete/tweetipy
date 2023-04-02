@@ -1,20 +1,20 @@
-from dotenv import load_dotenv
-from os import getenv
 from tweetipy import Tweetipy
 from tweetipy.helpers import QueryBuilder
 
-load_dotenv()
-
+# Initialize the client
 ttpy = Tweetipy(
-    oauth_consumer_key=getenv('TWITTER_API_KEY'),
-    oauth_consumer_secret=getenv('TWITTER_API_KEY_SECRET')
-)
+    'YOUR_TWITTER_API_KEY',
+    'YOUR_TWITTER_API_KEY_SECRET')
 
+# The query builder is your friend :)
 t = QueryBuilder()
 
+# Define the search criteria using the query builder.
 search_results = ttpy.tweets.search(
     query=t.from_user('Randogs8'),
     sort_order='recency'
 )
 
-print(search_results)
+# See results 🤩
+for tweet in search_results:
+    print(tweet)
