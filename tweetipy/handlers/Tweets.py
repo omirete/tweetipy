@@ -2,6 +2,8 @@ from typing import Literal, Union
 from tweetipy.helpers.API import API_OAUTH_1_0_a
 from tweetipy.helpers.QueryBuilder import QueryStr
 from tweetipy.types import MediaToUpload, Poll, Tweet
+from tweetipy.enums.fields import TweetFields, MediaFields, PlaceFields, PollFields, UserFields
+from tweetipy.enums.expansions import TweetExpansions
 from tweetipy.types.tweet import ReplyConfig
 
 
@@ -110,6 +112,64 @@ class HandlerTweets():
                 return tweets
             else:
                 return []
+        else:
+            print(r.text)
+            r.raise_for_status()
+
+    def getOne(
+        self,
+        id: str,
+        include_media_fields: list[MediaFields] = [],
+        include_place_fields: list[PlaceFields] = [PlaceFields.country, PlaceFields.full_name, PlaceFields.place_type],
+        include_poll_fields: list[PollFields] = [],
+        include_tweet_fields: list[TweetFields] = [TweetFields.author_id, TweetFields.public_metrics, TweetFields.geo, TweetFields.created_at],
+        include_user_fields: list[UserFields] = [UserFields.username, UserFields.verified, UserFields.verified_type],
+    ) -> Union[Tweet, list[Tweet]]:
+
+        endpoint = f'https://api.twitter.com/2/tweets/{id}'
+        
+        expansions = []
+        if len(include_media_fields) > 0:
+            expansions.append(TweetExpansions.attachments_media_keys)
+        if len(include_place_fields) > 0:
+            expansions.append(TweetExpansions.geo_place_id)
+        if len(include_poll_fields) > 0:
+            expansions.append(TweetExpansions.attachments_poll_ids)
+        if len(include_user_fields) > 0:
+            expansions.append(TweetExpansions.author_id)
+        
+        body = {
+            "ids": None,
+            "expansions": None if len(expansions) == 0 else ','.join(expansions),
+            "media.fields": None if len(include_media_fields) == 0 else ','.join(include_media_fields),
+            "place.fields": None if len(include_place_fields) == 0 else ','.join(include_place_fields),
+            "poll.fields": None if len(include_poll_fields) == 0 else ','.join(include_poll_fields),
+            "tweet.fields": None if len(include_tweet_fields) == 0 else ','.join(include_tweet_fields),
+            "user.fields": None if len(include_user_fields) == 0 else ','.join(include_user_fields),
+        }
+        
+        # Remove unused params -------------------------------------------------
+        clean_body = {}
+        for key, val in body.items():
+            if val != None:
+                clean_body[key] = val
+        body = clean_body.copy()
+        # ----------------------------------------------------------------------
+
+        r = self.API.get(url=endpoint, params=body)
+        if r.status_code == 200:
+            res_json = r.json()
+            tweet_raw = {}
+            try:
+                tweet_raw = res_json['data']
+            except KeyError as e:
+                raise Exception(f'There was an error downloading the data. See details: {e}')
+            if len(expansions)>0:
+                try:
+                    tweet_raw['includes'] = res_json["includes"]
+                except KeyError as e:
+                    raise Exception(f'There was an error downloading the requested expansions. See details: {e}')
+            return Tweet(**tweet_raw)
         else:
             print(r.text)
             r.raise_for_status()
