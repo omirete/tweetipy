@@ -83,7 +83,7 @@ class API_OAUTH_1_0_a():
                 resource_owner_key=access_token,
                 resource_owner_secret=access_token_secret)
 
-    def __init__(self, oauth_consumer_key: str, oauth_consumer_secret: str, oauth_token: str = None, oauth_token_secret: str = None, session_path: PathLike = None) -> None:
+    def __init__(self, oauth_consumer_key: str, oauth_consumer_secret: str, oauth_token: str = None, oauth_token_secret: str = None, session_path: PathLike[str] = None) -> None:
         self.oauth_consumer_key = oauth_consumer_key
         self.oauth_consumer_secret = oauth_consumer_secret
         self.oauth_token = oauth_token
