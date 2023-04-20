@@ -1,5 +1,8 @@
+from typing import Union
+
+
 class ReplyConfig():
-    def __init__(self, exclude_reply_user_ids: list[str], in_reply_to_tweet_id: str) -> None:
+    def __init__(self, exclude_reply_user_ids: Union[list[str], None], in_reply_to_tweet_id: Union[str, None]) -> None:
         """
         - exclude_reply_user_ids: A list of User IDs to be excluded from the
         reply Tweet thus removing a user from a thread.
