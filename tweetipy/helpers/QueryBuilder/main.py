@@ -242,6 +242,9 @@ class QueryBuilder():
         return self._return(f'({" OR ".join(keywords)})')
 
     def with_exact_string(self, string: str) -> QueryStr:
+        """
+        Will filter for tweets containing the exact string provided.
+        """
         return self._return(f'"{string}"')
 
     @property
