@@ -48,7 +48,7 @@ class HandlerTweets():
             "quote_tweet_id": quote_tweet_id,
             "direct_message_deep_link": direct_message_deep_link,
             "for_super_followers_only": for_super_followers_only,
-            "reply": reply_config if in_reply_to_tweet_id != None else None,
+            "reply": reply_config.json() if in_reply_to_tweet_id != None else None,
             "reply_settings": reply_settings,
             "text": text,
         }
