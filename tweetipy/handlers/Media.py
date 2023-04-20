@@ -78,7 +78,7 @@ class HandlerMedia():
             print(r.status_code)
             return _MediaUpload_INIT_Response(**r.json())
         except:
-            r.raise_for_status()
+            return r.raise_for_status()
     
     def _chunk_upload_APPEND(self, media_id: str, segment_index: int, media_bytes: bytes = None, media_data: bytes = None) -> bool:
         """

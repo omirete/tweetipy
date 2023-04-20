@@ -67,7 +67,7 @@ class HandlerTweets():
             return Tweet(**tweet_raw)
         else:
             print(r.text)
-            r.raise_for_status()
+            return r.raise_for_status()
     
     def search(
         self,
@@ -115,7 +115,7 @@ class HandlerTweets():
                 return []
         else:
             print(r.text)
-            r.raise_for_status()
+            return r.raise_for_status()
 
     def getOne(
         self,
@@ -173,4 +173,4 @@ class HandlerTweets():
             return Tweet(**tweet_raw)
         else:
             print(r.text)
-            r.raise_for_status()
+            return r.raise_for_status()
