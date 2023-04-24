@@ -1,6 +1,4 @@
-from enum import StrEnum
-
-class TweetExpansions(StrEnum):
+class TweetExpansions:
     attachments_poll_ids = "attachments.poll_ids"
     attachments_media_keys = "attachments.media_keys"
     author_id = "author_id"

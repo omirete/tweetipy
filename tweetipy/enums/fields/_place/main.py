@@ -1,6 +1,4 @@
-from enum import StrEnum
-
-class PlaceFields(StrEnum):
+class PlaceFields:
     """
     The Tweet will only return place fields if the Tweet contains a place and if
     you've also included the expansions=geo.place_id query parameter in your

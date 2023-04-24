@@ -1,6 +1,4 @@
-from enum import StrEnum
-
-class MediaFields(StrEnum):
+class MediaFields:
     """
     The Tweet will only return media fields if the Tweet contains media and if
     you've also included the expansions=attachments.media_keys query parameter

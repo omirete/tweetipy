@@ -1,6 +1,4 @@
-from enum import StrEnum
-
-class TweetFields(StrEnum):
+class TweetFields:
     attachments = "attachments"
     author_id = "author_id"
     context_annotations = "context_annotations"

@@ -1,6 +1,4 @@
-from enum import StrEnum
-
-class UserFields(StrEnum):
+class UserFields:
     created_at = "created_at"
     description = "description"
     entities = "entities"
